@@ -1,12 +1,14 @@
 #!/bin/bash
 
-D=/home/ssenesi/CAMMAC
+D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure. It will hold cached data
 figname=$(basename $0)
 figname=${figname/.sh/}
-mkdir -p $figname
-cd $figname
+
+dirname=${figname/-JJA/} 
+mkdir -p $dirname
+cd $dirname
 
 
 cat <<EOF >fig.yaml
@@ -41,7 +43,7 @@ plot_args :
   delta : 0.2 
 
 clim_contours             : [ ] 
-figure_details            : { page_width :2450, page_height :3444,  insert_width :2000, pt :60,  ybox :133, y :40}
+figure_details            : { page_width : 2450, page_height : 3444,  insert_width : 2000, pt : 60,  ybox : 133, y : 40}
 common_grid               :  r360x180 
 
 EOF
@@ -49,5 +51,12 @@ EOF
 # Launch a job in which papermill will execute the notebook, injecting above parameters
 jobname=$figname
 output=$figname
-$D/jobs/job_pm.sh $D/notebooks/change_map_1var_at_WL_1SSP_with_clim.ipynb fig.yaml $jobname $output
+# Tell job_pm.sh to use co-located environment setting
+export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell job_pm.sh to use co-located parameters file 
+commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
+[ ! -f $commons ] && $commons = ""
+
+$D/jobs/job_pm.sh $D/notebooks/change_map_1var_at_WL_1SSP_with_clim.ipynb fig.yaml $jobname $output $commons
 

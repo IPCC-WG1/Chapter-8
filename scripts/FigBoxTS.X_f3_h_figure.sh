@@ -1,6 +1,6 @@
 #!/bin/bash
 
-D=/home/ssenesi/CAMMAC
+D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working sub-directory specific to this figure. It will hold cached data
 figname=$(basename $0)
@@ -22,7 +22,10 @@ title                 : "Hydrological variables change over tropical land"
 yaxis_title           : "% change "
 
 scenarios             : [ ssp585 ]
-excluded_models       : [ CAMS-CSM1-0 ]
+excluded_models       : [ ]
+#excluded_models       : [ CIESM , KACE-1-0-G , CAMS-CSM1-0, FIO-ESM-2-0, FGOALS-f3-L, MCM-UA-1-0 ]
+#data_versions_tag     : 20200918
+
 variables             : [[ pr , mean ],  [ mrro , mean ], [ pr , std ], [ mrro , std ], [ prw , mean ]]
 option                :  mean 
 combined_seasons    : [ tropics_annual ]
@@ -41,7 +44,7 @@ show_variability_CI   : True
 show_mean_CI          : True
 show_tas_CI           : False
 plot_intermediate_CIs : False
-xy_ranges             : [ 1.5, 6.9, -9.0, 40.0 ]
+xy_ranges             : [ 1, 6.4, -9.0, 50.0 ]
 
 max_warming_level   : 5.
 min_models_nb       : 7
@@ -50,4 +53,11 @@ EOF
 
 jobname=$figname
 output=$figname
-$D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons_dT_figure.ipynb fig.yaml $jobname $output
+# Tell job_pm.sh to use co-located environment setting
+export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell job_pm.sh to use co-located parameters file 
+commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
+[ ! -f $commons ] && $commons = ""
+
+$D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons_dT_figure.ipynb fig.yaml $jobname $output $commons

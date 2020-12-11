@@ -1,6 +1,6 @@
 #!/bin/bash
 
-D=/home/ssenesi/CAMMAC
+D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working sub-directory specific to this figure. It will hold cached data
 figname=$(basename $0)
@@ -18,7 +18,7 @@ figure_name           :  Fig8-15
 outdir                :  ./figures 
 indir                 :  ./changes    # Location for compute phase outputs
 scenario              :   ssp585 
-variables             : [( pr , mean ),( pr , std ),( prw , mean ),( mrro , mean ),( mrro , std )]
+variables             : [[ pr , mean ],[ pr , std ],[ prw , mean ],[ mrro , mean ],[ mrro , std ]]
 seasons               : [ tropics_JJA , tropics_DJF , extra_summer , extra_winter ]
 excluded_models       : { mrro : [  CAMS-CSM1-0  ]}
 ensemble_stat         :  nq95  
@@ -61,4 +61,11 @@ EOF
 
 jobname=$figname
 output=$figname
-$D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons_figure.ipynb fig_figure.yaml $jobname $output
+# Tell job_pm.sh to use co-located environment setting
+export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell job_pm.sh to use co-located parameters file 
+commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
+[ ! -f $commons ] && $commons = ""
+
+$D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons_figure.ipynb fig_figure.yaml $jobname $output $commons

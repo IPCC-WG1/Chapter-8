@@ -6,11 +6,11 @@
 # But if file common_parameters.yaml also exists in launch directory, it has higher priority
 
 
+climaf_lib                 : /home/ssenesi/climaf_installs/climaf_running
 CAMMAC                     : /home/ssenesi/CAMMAC
 data_versions_dir          : /home/ssenesi/CAMMAC/select_data_versions
 data_versions_tag          : 20200918_plus_derived_plus_KACE
 default_fixed_fields_dir   : /home/ssenesi/CAMMAC/data/fixed_fields
-climaf_lib                 : /home/ssenesi/climaf_installs/climaf_running
 
 do_test                    : False
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-D=/home/ssenesi/CAMMAC
+D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure. It will hold cached data
 figname=$(basename $0)
@@ -44,5 +44,11 @@ EOF
 # Launch a job in which papermill will execute the notebook, injecting above parameters 
 jobname=$figname
 output=$figname
-$D/jobs/job_pm.sh $D/notebooks/change_zonal_mean.ipynb fig.yaml $jobname $output
-#hours=18 $D/jobs/job_pm.sh $D/notebooks/change_zonal_mean.ipynb fig.yaml $jobname $output
+# Tell job_pm.sh to use co-located environment setting
+export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell job_pm.sh to use co-located parameters file 
+commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
+[ ! -f $commons ] && $commons = ""
+
+hours=10 $D/jobs/job_pm.sh $D/notebooks/change_zonal_mean.ipynb fig.yaml $jobname $output $commons

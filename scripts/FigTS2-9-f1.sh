@@ -1,6 +1,6 @@
 #!/bin/bash
 
-D=/home/ssenesi/CAMMAC
+D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure. It will hold cached data
 figname=$(basename $0)
@@ -28,21 +28,21 @@ season                 : ANN
 field_type             : means_rchange 
 
 experiments            : [ ssp126 , ssp245 , ssp585 ]
-horizons               : [ "2021-2040" , "2041-2060","2081-2100"]
+horizons               : [ "2021-2040" , "2041-2060", "2081-2100" ]
 ref_period             : "1995-2014"
 ref_experiment         :  historical 
 
 
-excluded_models        : []
 included_models        : null
+excluded_models        : []
 variability_models     : null
 variability_excluded_models : []
 
 plot_args              : { colors : "-40 -20 -10  -5 -2  0 2  5 10 20 40 "}
 
-variab_sampling_args   : { house_keeping :True, compute :True, detrend :True, shift :100, nyears :20, number :20}
+variab_sampling_args   : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 20}
 
-figure_details         : { page_width :2450, page_height :3444,  insert_width :1800, pt :48,  ybox :133, y :52}
+figure_details         : { page_width : 2450, page_height : 3444,  insert_width : 1800, pt : 48,  ybox : 133, y : 52}
 use_cached_proj_fields : False
 common_grid            : "r360x180"
 
@@ -52,4 +52,11 @@ EOF
 # Launch a job in which papermill will execute the notebook, injecting above parameters
 jobname=$figname
 output=$figname
-hours=12 $D/jobs/job_pm.sh $D/notebooks/change_map_3SSPs_3horizons.ipynb fig.yaml $jobname $output
+# Tell job_pm.sh to use co-located environment setting
+export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell job_pm.sh to use co-located parameters file 
+commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
+[ ! -f $commons ] && $commons = ""
+
+hours=12 $D/jobs/job_pm.sh $D/notebooks/change_map_3SSPs_3horizons.ipynb fig.yaml $jobname $output $commons

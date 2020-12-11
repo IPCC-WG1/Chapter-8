@@ -1,6 +1,6 @@
 #!/bin/bash
 
-D=/home/ssenesi/CAMMAC
+D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure. It will hold cached data
 figname=$(basename $0)
@@ -10,7 +10,7 @@ cd $figname
 
 cat <<EOF >fig.yaml
 
-do_test              : True
+do_test              : False
 
 figure_name          :  FigTS-2-10 
 outdir               :  ./figures 
@@ -26,8 +26,8 @@ ref_period           : "1995-2014"
 season               :  ANN         
 field_type           :  means_rchange  # Ranges in figures are not tuned for other choices ...
 
-z1=0.1/(24*3600) # 0.1 mm/day, in kg m2 s-1
-use_cached_proj_fields : False
+z1                   : 0.1/(24*3600) # 0.1 mm/day, in kg m2 s-1
+use_cached_proj_fields : True
 #
 cache_dir            :  ./cache 
 variab_sampling_args : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 20}
@@ -54,4 +54,12 @@ EOF
 # Launch a job in which papermill will execute the notebook, injecting above parameters
 jobname=$figname
 output=$figname
-hours=23 $D/jobs/job_pm.sh $D/notebooks/change_map_1SSP_9vars.ipynb fig.yaml $jobname $output
+# Tell job_pm.sh to use co-located environment setting
+export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell job_pm.sh to use co-located parameters file 
+commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
+[ ! -f $commons ] && $commons = ""
+
+#hours=23 $D/jobs/job_pm.sh $D/notebooks/change_map_1SSP_9vars.ipynb fig.yaml $jobname $output
+hours=23 $D/jobs/job_pm.sh $D/notebooks/change_map_1SSP_9vars.ipynb fig.yaml $jobname $output $commons

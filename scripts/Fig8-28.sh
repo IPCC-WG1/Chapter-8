@@ -1,6 +1,6 @@
 #!/bin/bash
 
-D=/home/ssenesi/CAMMAC
+D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure, based on script name.
 # It will hold cached data
@@ -61,25 +61,25 @@ plot_step           : 10
 
 # y-axis range for various basins
 minmax :
-  Amazon  : (-45,30)
-  Lena    : (-10,70)
-  Yangtze : (-35,40)
-  Mississippi : (-30,45)
-  Danube  : (-35,40)
-  Niger : (-70,160)
-  Euphrates  : (-120,80)
-  Indus  : (-45,110)
-  Nile : (-100,180) 
-  Parana :(-40,70,)
-  Mackenzie :(-10,50)
-  Amu-Darya :(-50,80)
-  Murray  : (-70,120)
+  Amazon  :     [ -45 , 30 ]
+  Lena    :     [ -10 , 70 ]
+  Yangtze :     [ -35 , 40 ]
+  Mississippi : [ -30 , 45 ]
+  Danube  :     [ -35 , 40 ]
+  Niger :       [-70 , 160 ]
+  Euphrates  :  [ -120 , 80 ]
+  Indus  :      [ -45 , 110 ]
+  Nile :        [ -100 , 180 ] 
+  Parana :      [ -40 , 70 ]
+  Mackenzie :   [ -10 , 50 ]
+  Amu-Darya :   [ -50 , 80 ]
+  Murray  :     [ -70 , 120 ]
 
 
 basins_file        : $D/data/basins/num_bas_ctrip.nc 
-basins_key         : { land : -999,  Yangtze :11 ,  Lena :8,  Amazon :1,  Mississippi :3 , 
-                       Danube :29,  Niger :9,  Euphrates :31,  Indus :20,  Nile :4,  Parana :5 , 
-                       Amu-Darya : 45,  Mackenzie :12,  Lake Eyre :15,  Murray :17}
+basins_key         : { land : -999,  Yangtze : 11 ,  Lena : 8,  Amazon : 1,  Mississippi : 3 , 
+                       Danube : 29,  Niger : 9,  Euphrates : 31,  Indus : 20,  Nile : 4,  Parana : 5 , 
+                       Amu-Darya :  45,  Mackenzie : 12,  Lake Eyre : 15,  Murray : 17}
 
 EOF
 
@@ -87,5 +87,12 @@ EOF
 # Launch a job in which papermill will execute the notebook, injecting above parameters
 jobname=$figname
 output=$figname
-hours="36" $D/jobs/job_pm.sh $D/notebooks/change_rate_basins.ipynb fig.yaml $jobname $output
+# Tell job_pm.sh to use co-located environment setting
+export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell job_pm.sh to use co-located parameters file 
+commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
+[ ! -f $commons ] && $commons = ""
+
+hours="36" $D/jobs/job_pm.sh $D/notebooks/change_rate_basins.ipynb fig.yaml $jobname $output $commons
 
