@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Generates a Figure in the IPCC Working Group I Contribution to the Sixth Assessment Report: Chapter 8
+# The figure number is the basename of this very file
+
+# Creator : Stéphane Sénési stejase@laposte.net
+# Version date : 20210328
+
+# This script needs CAMMAC - see https://cammac.readthedocs.io/.
+
+# It actually launches one of its notebooks (see last line), feeding
+# it with some parameter values, through CAMMAC utility job_pm.sh
+# Parameters are explained in CAMMAC doc for the launched notebbok
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure. It will hold cached data and figures
@@ -12,11 +24,13 @@ cd $figname
 # Create input parameters file 
 cat <<EOF >fig.yaml
 
-figure_title           : null
+figure_title           : "Multi-model seasonal mean runoff percentage change (2081-2100 vs 1995-2014)"
 auto_title_prefix      : Seasonal
 #
 figure_name            : Fig8-18
-version                : ""
+version                : "_AR6S_0.8_legend"
+scheme                 : AR6S
+sign_threshold         : 0.8
 #
 variable               : mrro
 table                  : Lmon
@@ -30,7 +44,7 @@ included_models        : null
 excluded_models        : []
 variability_models     : null
 variability_excluded_models : []
-variability_sampling_args   : { shift: 100, nyears: 20, number: 20, house_keeping: False, compute: True, detrend: True }
+variability_sampling_args   : { shift: 100, nyears: 20, number: 10, house_keeping: False, compute: True, detrend: True }
 #
 seasons                : [ DJF, JJA ]  
 experiments            : [ ssp126, ssp245, ssp585 ] 
@@ -39,6 +53,8 @@ ref_experiment         : historical
 ref_period             : "1995-2014"  
 #
 use_cached_proj_fields : True
+write_cached_proj_fields : True
+drop_old_figures       : False
 print_statistics       : True
 #
 outdir                 : ./figures

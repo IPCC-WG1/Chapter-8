@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Generates a Figure in the IPCC Working Group I Contribution to the Sixth Assessment Report: Chapter 8
+# The figure number is the basename of this very file
+
+# Creator : Stéphane Sénési stejase@laposte.net
+# Version date : 20210328
+
+# This script needs CAMMAC - see https://cammac.readthedocs.io/.
+
+# It actually launches one of its notebooks (see last line), feeding
+# it with some parameter values, through CAMMAC utility job_pm.sh
+# Parameters are explained in CAMMAC doc for the launched notebbok
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure, based on script name.
@@ -30,6 +42,7 @@ compute_basins : [ Amazon , Lena, Yangtze , Mississippi, Danube, Niger, Euphrate
 variables: 
   - [ mrro , Lmon, mean ]
   - [ mrro , Lmon, std ]
+
 stats_list          : [  mean , nq5 , nq95 , ens ]
 
 ref_experiment      :  historical 
@@ -42,11 +55,13 @@ last_year          : 2081  # i.e. last period's begin
 step               : 10  # Not necessarily equal to periods_length !
 #
 outdir             : ./figures
+image_format       : eps
+
 
 # Plot parameters
 ###################################
 
-plot_basins : [ Mississippi, Danube, Lena, Amazon, Euphrates, Yangtze, Niger, Indus, Murray ]
+plot_basins         : [ Mississippi, Danube, Lena, Amazon, Euphrates, Yangtze, Niger, Indus, Murray ]
 plot_variables      : [ [ mrro , Lmon , mean ], [ mrro , Lmon , std ] ]
 plot_variable_label :  runoff 
 plot_name1          :  mean 
@@ -94,5 +109,5 @@ export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
 commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
 [ ! -f $commons ] && $commons = ""
 
-hours="36" $D/jobs/job_pm.sh $D/notebooks/change_rate_basins.ipynb fig.yaml $jobname $output $commons
+hours="48" $D/jobs/job_pm.sh $D/notebooks/change_rate_basins.ipynb fig.yaml $jobname $output $commons
 

@@ -1,53 +1,78 @@
 #!/bin/bash
 
+# Generates a Figure in the IPCC Working Group I Contribution to the Sixth Assessment Report: Chapter 8
+# The figure number is the basename of this very file
+
+# Creator : Stéphane Sénési stejase@laposte.net
+# Version date : 20210328
+
+# This script needs CAMMAC - see https://cammac.readthedocs.io/.
+
+# It actually launches one of its notebooks (see last line), feeding
+# it with some parameter values, through CAMMAC utility job_pm.sh
+# Parameters are explained in CAMMAC doc for the launched notebbok
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
-# Create a working directory specific to this figure. It will hold cached data
+# Create a local working directory specific to this figure. It will hold cached data
 figname=$(basename $0)
 figname=${figname/.sh/}
 mkdir -p $figname
 cd $figname
 
 # Create input parameters file 
-cat <<EOF >fig.yaml
+cat <<"EOF" >fig.yaml
 
-version            : ""
+figure_name        : Fig8-16 
+scheme             : AR6S
+sign_threshold     : 0.8
+version            : ""        
+title              : "Multi-model annual mean long-term changes in daily precipitation statistics"
+outdir             : ./figures
 
-included_models    : {}  
-excluded_models    : 
-   mrro: [ CAMS-CSM1-0 ]  # outlier for variability
+cases              : 
+                     ydry    : { derivation : plain  ,  variable : dday ,  table : yr ,  threshold : null, 
+                                 plot_args  : {  color : AR6_Evap_12 ,  units : days , 
+                                                 colors : "-32 -16 -8 -4 -2 0 2 4 8 16 32",
+                                                 focus : land  }}
+                     ydrain  : { derivation : plain  ,  variable : drain ,  table : yr ,  threshold : null, 
+                                 plot_args : {  color : AR6_Precip_12 ,  units : mm ,  scale : 24.*3600., 
+                                                colors : "-2 -1 -0.5 -0.2 -0.1 0 0.1 0.2 0.5 1 2 ",
+                                                focus : land } } 
 
-variables          : [ [pr, mean], [prw, mean], [pr, std], [mrro, mean], [mrro, std] ]
+order              : [ ydry, ydrain ]
 
-latitude_limit     : 30.
-SH_latitude_limit  : 60
-
-hybrid_seasons : { 
-    tropics_DJF  : [ [ tropics , DJF ] ], 
-    tropics_JJA  : [ [ tropics , JJA ] ], 
-    extra_winter : [ [ NH , DJF ] , [ SH , JJA ] ],
-    extra_summer : [ [ NH , JJA ] , [ SH , DJF ] ],
-    }
-
-stats_list         : [ mean, ens, nq5, nq95 ]
+derived_variables_pattern  : "/data/ssenesi/CMIP6_derived_variables/${variable}/${variable}_${table}_${model}_${experiment}_${realization}_${grid}_${version}_${PERIOD}.nc"
+derived_variable_table     : yr
 
 ref_experiment     : historical
-ref_period         : "1850-1900" 
+experiments        : [ ssp126 , ssp245 , ssp585 ]
+ref_period         : "1995-2014"
+proj_period        : "2081-2100"
+field_type         :  mean_change 
+season             :  ANN 
 
-scenarios          : [ ssp585, ssp245, ssp126 ]
+included_models    : null
+excluded_models    : [ ]
 
-periods_length     : 20
-start_year         : 2021
-last_year          : 2081 
-step               : 10  
+variability_models : null
+variability_excluded_models : [ ]
 
-outdir             : ./changes
+use_cached_proj_fields   : True
+write_cached_proj_fields : True
+drop_old_figures         : False
+print_statistics         : True
 
-do_test            : False
+common_grid            : "r360x180"
+variab_sampling_args   : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 10}
+cache_dir              :  ./cache 
+figure_details         : { page_width : 2450, page_height : 3444,  insert_width : 2400, pt : 55, ybox : 133, y : 40}
+do_test                : False
 
 EOF
 
-# Launch a job in which papermill will execute the notebook, injecting above parameters
+
+# Launch a job in which papermill will execute the notebook, injecting above parameters 
 jobname=$figname
 output=$figname
 # Tell job_pm.sh to use co-located environment setting
@@ -57,5 +82,4 @@ export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
 commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
 [ ! -f $commons ] && $commons = ""
 
-#$D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons.ipynb fig.yaml $jobname $output $commons
-hours=11 $D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons.ipynb fig.yaml $jobname $output $commons
+hours=12 $D/jobs/job_pm.sh $D/notebooks/change_map_3SSPs_2vars.ipynb fig.yaml $jobname $output $commons

@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Generates a Figure in the IPCC Working Group I Contribution to the Sixth Assessment Report: Chapter 8
+# The figure number is the basename of this very file
+
+# Creator : Stéphane Sénési stejase@laposte.net
+# Version date : 20210328
+
+# This script needs CAMMAC - see https://cammac.readthedocs.io/.
+
+# It actually launches one of its notebooks (see last line), feeding
+# it with some parameter values, through CAMMAC utility job_pm.sh
+# Parameters are explained in CAMMAC doc for the launched notebbok
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure. It will hold cached data
@@ -14,6 +26,9 @@ cat <<EOF >fig.yaml
 figure_name        :  Box8-2_Fig1 
 outdir             :  ./figures 
 version            : ""
+scheme             : AR6S
+sign_threshold     : 0.8
+
 title              : null
 
 variable           :  pr 
@@ -32,15 +47,17 @@ field_type         :  mean_change
 excluded_models    : []  
 included_models    : null
 
-custom_plot        : { min : -0.2, max : 0.2,  delta : 0.04,  color : AR6_Temp_12s }
+custom_plot        : { min : -0.2, max : 0.2,  delta : 0.04,  color : AR6_Temp_12 }
 
 use_cached_proj_fields : True
-use_cached_ref_field : True
-cache_dir          :  ./cache
+write_cached_proj_fields : True
+drop_old_figures       : True
+use_cached_ref_field   : True
+cache_dir              : ./cache
 
 figure_details     : { page_width : 2450,  page_height : 2450, insert_width : 2400,  pt : 55,  ybox : 133, y : 40}
 common_grid        :  r360x180 
-variab_sampling_args : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 20}
+variab_sampling_args : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 10}
 
 EOF
 

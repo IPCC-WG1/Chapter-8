@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Generates a figure looking like a panel of figure BoxTS-12 in the IPCC Working
+# Group I Contribution to the Sixth Assessment Report Technical
+# Summary. The panel shows rate of change of precipitation and runoff
+# with warming, for the tropics
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working sub-directory specific to this figure. It will hold cached data
@@ -16,15 +21,13 @@ cat <<EOF >fig.yaml
 version               : ""
 input_dir             :  ./changes 
 outdir                :  ./figures 
-figure_name           :  fig_BoxTS.X_f3_h 
+figure_name           :  fig_BoxTS-12 
 panel                 :  h 
 title                 : "Hydrological variables change over tropical land"
 yaxis_title           : "% change "
 
 scenarios             : [ ssp585 ]
 excluded_models       : [ ]
-#excluded_models       : [ CIESM , KACE-1-0-G , CAMS-CSM1-0, FIO-ESM-2-0, FGOALS-f3-L, MCM-UA-1-0 ]
-#data_versions_tag     : 20200918
 
 variables             : [[ pr , mean ],  [ mrro , mean ], [ pr , std ], [ mrro , std ], [ prw , mean ]]
 option                :  mean 

@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Generates DJF panel for figure 8-21 in the IPCC Working Group I Contribution to the Sixth Assessment Report: Chapter 8
+
+# Creator : Stéphane Sénési stejase@laposte.net
+# Version date : 20210328
+
+# This script needs CAMMAC - see https://cammac.readthedocs.io/.
+
+# It actually launches one of its notebooks (see last line), feeding
+# it with some parameter values, through CAMMAC utility job_pm.sh
+# Parameters are explained in CAMMAC doc for the launched notebbok
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working directory specific to this figure. It will hold cached data
@@ -19,8 +30,8 @@ manual_title              : null
 outdir                    :  ./figures 
 
 variable                  :  P-E      
-table                     :  Amon          # Script was yet tested only for a monthly table
-variable_transformation   :  plain         # Could be 'iav', 'gini', 'welsh', 'dry'...
+table                     :  Amon          
+variable_transformation   :  plain 
 season                    :  DJF
 experiment                :  ssp585 
 
@@ -37,7 +48,7 @@ included_models           : null
 excluded_models           : [ ACCESS-ESM1-5, EC-Earth3-Veg, EC-Earth3 ]
 
 plot_args : 
-  color : AR6_Precip_12s 
+  color : AR6_Precip_12 
   min   : -1
   max   : 1 
   delta : 0.2 

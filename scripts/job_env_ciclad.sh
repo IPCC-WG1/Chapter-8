@@ -3,8 +3,9 @@
 # Setting up CAMMAC environment on Ciclad for using CliMAF, IPython NoteBooks
 # and colormaps used in CAMMAClib.
 
-# Environment variable CAMMAC allows to reach some Ncl colormaps
+# Environment variable CAMMAC allows to reach some Ncl AR6 colormaps
 CAMMAC=${CAMMAC:-/home/ssenesi/CAMMAC}
+export NCARG_COLORMAP_PATH=${CAMMAC?}/data/colormaps:$NCARG_ROOT/lib/ncarg/colormaps
 
 # A given level is needed for some utilities
 module load ncl/6.6.2 cdo/1.9 netcdf4/4.3.3.1-gfortran 
@@ -27,6 +28,4 @@ export TMPDIR=$CLIMAF_CACHE
 # -- For conversion of Notebooks to PDF
 module load TeX-live
 
-# Where to find Ncl AR6 colormaps
-export NCARG_COLORMAP_PATH=${CAMMAC?}/data/colormaps:$NCARG_ROOT/lib/ncarg/colormaps
 

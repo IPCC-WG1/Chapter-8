@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Generates data for a panel for figure BoxTS-12 in the IPCC Working
+# Group I Contribution to the Sixth Assessment Report Technical
+# Summary. The panel shows rate of change of precipitation and runoff
+# with warming, for the tropics
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working sub-directory specific to this figure. It will hold cached data
@@ -34,8 +39,11 @@ min_warming        : 1.5
 warming_step       : 0.25
 window_half_size   : 10  
 
-excluded_models    : {} 
 included_models    : {}  
+excluded_models    : 
+   mrro: [ CAMS-CSM1-0, IITM-ESM ]  # CAMS : outlier for variability, IITM : no mrro
+   pr:   [ IITM-ESM ]  
+   prw:  [ IITM-ESM,  CMCC-CM2-HR4, CMCC-CM2-SR5, FIO-ESM-2-0 ] # According to range check  
 
 outdir             :  ./changes 
 
