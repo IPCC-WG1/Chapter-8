@@ -5,6 +5,14 @@
 # Summary. The panel shows rate of change of precipitation and runoff
 # with warming, for the tropics
 
+# It also needs a dictionnary of available CMIP6 datasets versions; a
+# version of such a dictionnary is provided in sibling directory
+# data/, and is valid for the data available on the ESPRI platform.
+
+# It actually launches one of its notebooks (see last line), feeding
+# it with some parameter values, through CAMMAC utility job_pm.sh
+# Parameters are explained in CAMMAC doc for the launched notebbok
+
 D=${CAMMAC:-/home/ssenesi/CAMMAC}
 
 # Create a working sub-directory specific to this figure. It will hold cached data

@@ -5,6 +5,10 @@
 # Creator : Stéphane Sénési stejase@laposte.net
 # Version date : 20210328
 
+# It also needs a dictionnary of available CMIP6 datasets versions; a
+# version of such a dictionnary is provided in sibling directory
+# data/, and is valid for the data available on the ESPRI platform.
+
 # This script needs CAMMAC - see https://cammac.readthedocs.io/.
 
 # It actually launches one of its notebooks (see last line), feeding
