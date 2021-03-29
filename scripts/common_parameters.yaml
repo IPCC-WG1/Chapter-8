@@ -1,7 +1,3 @@
-
-# Creator : Stéphane Sénési stejase@laposte.net
-# Version date : 20210328
-
 # This file (common_parameters.yaml) includes parameters that can be
 # usefully pre-pended to the parameters file provided to job launcher
 # $CAMMAC/jobs/job_pm.sh (pre-pending implies that they have lower
@@ -10,6 +6,12 @@
 # This actually happens for calls to job_pm.sh which are done by
 # scripts colocated with the present file.
 
+# It contains those parameters which value is usefully shared among
+# co-located scripts. Current values are for the actual AR6/WGI
+# figure production run
+
+# Creator : Stéphane Sénési stejase@laposte.net
+# Version date : 20210328
 
 climaf_lib                 : /home/ssenesi/climaf_installs/climaf_running
 CAMMAC                     : /home/ssenesi/CAMMAC
