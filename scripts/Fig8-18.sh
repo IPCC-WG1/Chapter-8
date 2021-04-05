@@ -63,7 +63,7 @@ print_statistics       : True
 #
 outdir                 : ./figures
 cache_dir              : ./cache
-figure_details         : { page_width : 2450,  page_height : 3444,  insert_width : 1800, pt : 48,  ybox : 133,  y : 52 }
+figure_details         : { page_width : 2450,  page_height : 3444,  insert_width : 1800, pt : 48,  ybox : 133,  y : 52 , font :  Liberation-Sans}
 common_grid            : "r360x180"
 figure_mask            : $D/data/mask_hide_antarctic_360x180.nc
 

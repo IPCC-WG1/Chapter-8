@@ -61,7 +61,7 @@ plot_args :
   aux_options : "|cnLineThicknessF=5.|cnLineColor=black|gsnContourZeroLineThicknessF=9."
 
 clim_contours             : [ 0 ] 
-figure_details            : { page_width : 2450, page_height : 3444,  insert_width : 2000, pt : 60,  ybox : 133, y : 40}
+figure_details            : { page_width : 2450, page_height : 3444,  insert_width : 2000, pt : 60,  ybox : 133, y : 40, font :  Liberation-Sans}
 common_grid               :  r360x180 
 
 EOF

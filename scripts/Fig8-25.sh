@@ -59,7 +59,7 @@ plot_args                 :
                    color  :  AR6_Precip_12
                    colors : "-80. -40. -20. -10. -5. 0 5. 10. 20. 40. 80. "
 
-figure_details            : { page_width : 2450, page_height : 3444,  insert_width : 2000, pt : 60,  ybox : 133, y : 40}
+figure_details            : { page_width : 2450, page_height : 3444,  insert_width : 2000, pt : 60,  ybox : 133, y : 40, font :  Liberation-Sans}
 common_grid               : "r360x180"
 variability_sampling_args : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 10}
 #

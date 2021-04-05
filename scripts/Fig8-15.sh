@@ -70,7 +70,7 @@ print_statistics         : True
 common_grid            : "r360x180"
 variab_sampling_args   : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 10}
 cache_dir              :  ./cache 
-figure_details         : { page_width : 2450, page_height : 3444,  insert_width : 2400, pt : 55, ybox : 133, y : 40}
+figure_details         : { page_width : 2450, page_height : 3444,  insert_width : 2400, pt : 55, ybox : 133, y : 40, font :  Liberation-Sans}
 do_test                : False
 
 EOF

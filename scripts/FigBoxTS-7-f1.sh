@@ -51,7 +51,7 @@ drop_old_figures       : False
 #
 cache_dir            :  ./cache 
 variab_sampling_args : { house_keeping : True, compute : True, detrend : True, shift : 100, nyears : 20, number : 10}
-figure_details       : { page_width : 2450, page_height : 3444, pt : 48,  ybox : 133, y : 52, insert_width : 700}
+figure_details       : { page_width : 2450, page_height : 3444, pt : 48,  ybox : 133, y : 52, insert_width : 700, font :  Liberation-Sans}
 common_grid          : "r360x180"
 antarctic_mask       : $D/data/mask_hide_antarctic_360x180.nc
 
