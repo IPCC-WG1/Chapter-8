@@ -1,10 +1,15 @@
 **Some_chap8_figures** is a repository for scripts producing a subset of IPCC/AR6/WG1 figures, mainly for Chapter 8, but also for some figures of the Technical Summary. It only deals with figures derived using CMIP6 multi-model outputs
 
-They have been used on the `CLIMERI-France data and computing platform <https://climeri-france.fr/acces-plateforme/>`_ for actually producing these figures:
+**This version is tagged AR6_FGD and was actually used for producing
+figures for the First Governemental Draft of the 6th IPCC/WGI
+Assessment Report. It is not necessarily the most recent one, nor the
+best documented one, and is here for reference and reproducibility**
+
+These scripts have been used on the `CLIMERI-France data and computing platform <https://climeri-france.fr/acces-plateforme/>`_ for actually producing these figures:
   - in chapter 8 : 13, 14, 15, 16, 17, 18, 21, 25, 26, Box2-f1
   - in the Technical Summary : 12, and two panels of 7-f1
 
-These scripts make heavy use of `CAMMAC <https://cammac.readthedocs.io>`_, which development was parallel to IPCC/AR6/WGI timeline; they just set parameters for CAMMAC notebooks and do launch them using a CAMMAC launch script. Documentation for these parameters is provided in CAMMAC documentation for each notebook. CAMMAC in turn makes heavy use of `CliMAF <https://climaf.readthedocs.io>`_
+These scripts make heavy use of `CAMMAC <https://cammac.readthedocs.io>`_, which development was parallel to IPCC/AR6/WGI timeline; they just set parameters for CAMMAC notebooks and do launch them using a CAMMAC launch script. Documentation for these parameters is provided in CAMMAC documentation for each notebook. **The compatible CAMMAC version is tagged AR6_FGD**. CAMMAC in turn makes heavy use of `CliMAF <https://climaf.readthedocs.io>`_
 
 Also provided is a dictionnary of the CMIP6 data that where available on the above platform on 31 january 2021, with sufficient temporal coverage; such a dictionnary in instrumental for the figure scripts; the one provided was actually used for AR6 figures; when wishing to use it elsewhere, one should only keep those dictionnary entries corresponding to locally available data
 

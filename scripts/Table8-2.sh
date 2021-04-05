@@ -83,5 +83,4 @@ export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
 commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
 [ ! -f $commons ] && $commons = ""
 
-#$D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons.ipynb fig.yaml $jobname $output $commons
 hours=12 $D/jobs/job_pm.sh $D/notebooks/change_hybrid_seasons_must.ipynb fig.yaml $jobname $output $commons
