@@ -1,5 +1,5 @@
-# This file (common_parameters.yaml) includes parameters that can be
-# usefully pre-pended to the parameters file provided to job launcher
+# This file (common_parameters.yaml) includes parameters that we wish
+# to pre-pend to the parameters file provided to job launcher
 # $CAMMAC/jobs/job_pm.sh (pre-pending implies that they have lower
 # priority)
 
@@ -13,11 +13,15 @@
 # Creator : Stéphane Sénési stejase@laposte.net
 # Version date : 20210328
 
-climaf_lib                 : /home/ssenesi/climaf_installs/climaf_running
-CAMMAC                     : /home/ssenesi/CAMMAC
-data_versions_dir          : /home/ssenesi/CAMMAC/select_data_versions
+data_versions_dir          : /data/ssenesi/CAMMAC/data
 data_versions_tag          : 20210201_derived
-default_fixed_fields_dir   : /home/ssenesi/CAMMAC/data/fixed_fields
+default_fixed_fields_dir   : /data/ssenesi/CAMMAC/data/fixed_fields
+
+# Tell CAMMAC where we put derived variables, here the yearly statistics of daily variables
+# derived_variables_pattern  can be set to null if this feature is not used
+
+derived_variable_table     : 'yr'
+derived_variables_pattern  : /data/ssenesi/CMIP6_derived_variables/${variable}/${variable}_${table}_${model}_${experiment}_${realization}_${grid}_${version}_${PERIOD}.nc
 
 do_test                    : False
 

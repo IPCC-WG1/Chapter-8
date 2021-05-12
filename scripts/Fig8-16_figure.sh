@@ -81,8 +81,12 @@ EOF
 
 jobname=$figname
 output=$figname
+
 # Tell job_pm.sh to use co-located environment setting
 export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
+
+# Tell where is python code file cammac_user_settings 
+export CAMMAC_USER_PYTHON_CODE_DIR=$(cd $(dirname $0); pwd)
 
 # Tell job_pm.sh to use co-located parameters file 
 commons=$(cd $(dirname $0); pwd)/common_parameters.yaml

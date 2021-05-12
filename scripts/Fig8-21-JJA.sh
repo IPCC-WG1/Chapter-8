@@ -15,13 +15,15 @@
 # it with some parameter values, through CAMMAC utility job_pm.sh
 # Parameters are explained in CAMMAC doc for the launched notebbok
 
-D=${CAMMAC:-/home/ssenesi/CAMMAC}
+CAMMAC=${CAMMAC:-/data/ssenesi/CAMMAC}
+export CAMMAC=$(cd $CAMMAC; pwd)
 
 # Create a working directory specific to this figure. It will hold cached data
 figname=$(basename $0)
 figname=${figname/.sh/}
 
-dirname=${figname/-JJA/} 
+#dirname=${figname/-JJA/} 
+dirname=${figname} 
 mkdir -p $dirname
 cd $dirname
 
@@ -61,17 +63,17 @@ clim_contours             : [ ]
 figure_details            : { page_width : 2450, page_height : 3444,  insert_width : 2000, pt : 60,  ybox : 133, y : 40, font :  Liberation-Sans}
 common_grid               :  r360x180 
 
+do_test                   : ${1:-False}
+
 EOF
 
 # Launch a job in which papermill will execute the notebook, injecting above parameters
 jobname=$figname
 output=$figname
-# Tell job_pm.sh to use co-located environment setting
-export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
 
 # Tell job_pm.sh to use co-located parameters file 
 commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
 [ ! -f $commons ] && $commons = ""
 
-$D/jobs/job_pm.sh $D/notebooks/change_map_1var_at_WL_1SSP_with_clim.ipynb fig.yaml $jobname $output $commons
+$CAMMAC/jobs/job_pm.sh $CAMMAC/notebooks/change_map_1var_at_WL_1SSP_with_clim.ipynb fig.yaml $jobname $output $commons
 

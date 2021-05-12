@@ -16,7 +16,8 @@
 # it with some parameter values, through CAMMAC utility job_pm.sh
 # Parameters are explained in CAMMAC doc for the launched notebbok
 
-D=${CAMMAC:-/home/ssenesi/CAMMAC}
+CAMMAC=${CAMMAC:-/home/ssenesi/CAMMAC}
+export CAMMAC=$(cd $CAMMAC; pwd)
 
 # Create a local working directory specific to this figure. It will hold cached data
 figname=$(basename $0)
@@ -73,16 +74,15 @@ ranges :
            rchange     : { min : -100. , max : 100., delta : 10. }
            variability : { scale : 24*3600 , units : mm/d, min : 0 , max : 0.25 , delta : 0.2 }
 
+do_test                : ${1:-False}
 EOF
 
 # Launch a job in which papermill will execute the notebook, injecting above parameters 
 jobname=$figname
 output=$figname
-# Tell job_pm.sh to use co-located environment setting
-export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
 
 # Tell job_pm.sh to use co-located parameters file 
 commons=$(cd $(dirname $0); pwd)/common_parameters.yaml
 [ ! -f $commons ] && $commons = ""
 
-hours=12 $D/jobs/job_pm.sh $D/notebooks/change_map_3SSPs_2seasons.ipynb fig.yaml $jobname $output $commons
+hours=12 $CAMMAC/jobs/job_pm.sh $CAMMAC/notebooks/change_map_3SSPs_2seasons.ipynb fig.yaml $jobname $output $commons
