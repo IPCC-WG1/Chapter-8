@@ -1,7 +1,7 @@
 **Some_chap8_figures** is a repository for scripts producing a subset
- of IPCC/AR6/WG1 figures, mainly for Chapter 8, but also for some
- figures of the Technical Summary. It only deals with figures derived
- using CMIP6 multi-model outputs
+of IPCC/AR6/WG1 figures, mainly for Chapter 8, but also for some
+figures of the Technical Summary. It only deals with figures derived
+using CMIP6 multi-model outputs
 
 This version is tagged V1 and was checked to reproduce results
 included in the 6th IPCC/WGI Assessment Report. It relies on CAMMAC V1
@@ -10,8 +10,9 @@ included in the 6th IPCC/WGI Assessment Report. It relies on CAMMAC V1
 These scripts have been used on the `CLIMERI-France data and computing
 platform <https://climeri-france.fr/acces-plateforme/>`_ for actually
 producing these figures:
-  - in chapter 8 : 13, 14, 15, 16, 17, 18, 21, 25, 26, Box2-f1
-  - in the Technical Summary : 12, and two panels of 7-f1
+
+- in chapter 8 : 13, 14, 15, 16, 17, 18, 21, 25, 26, Box2-f1
+- in the Technical Summary : 12, and two panels of 7-f1
 
 These scripts make heavy use of `CAMMAC
 <https://cammac.readthedocs.io>`_, which development was parallel to
@@ -32,6 +33,7 @@ The script's software requirements are limited to `those of CAMMAC
 <https://cammac.readthedocs.io/en/latest/requirements.html>`_
 
 The installation consists in:
+
   - downloading the scripts : `git clone
     https://github.com/senesis/some_chap8_figures.git`
   - installing CliMAF and CAMMAC (this includes tuning
@@ -40,12 +42,14 @@ The installation consists in:
     your CAMMAC install
 
 When executing a script:
+
   - first set the environment as described in CAMMAC doc (see section
-    'Batch...'; you basically have to set environemnt varables CLIMAF
+    'Batch...'; you basically have to set environment varables CLIMAF
     and CAMMAC)
   - a figure-specific directory is created locally. It will contain an
     execution trace (as a notebook with output cells), and for most
     scripts two directories:
+    
     - figures : contains single panel figures, a multi-panel figure,
       and metadata files which list the data used
     - cache : contains the data used as input of the figure plot phase
