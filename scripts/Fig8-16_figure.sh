@@ -47,7 +47,7 @@ ensemble_stat         :  nq95
 
 layout      : [2,2] 
 title       : "Projected water cycle changes as a function of global warming ~Z70~~C~in SSP5-8.5 and over 20-year overlapping periods, starting from [2021-2040], relative to 1850-1900"
-yaxis_title : "%% change averaged over land and across %d CMIP6 models~Z75~~C~Error bars show 5-95%% percentiles only for extreme GWLs"
+yaxis_title : "%% change averaged over land and across %d %s models~Z75~~C~Error bars show 5-95%% percentiles only for extreme GWLs"
 xaxis_title : "Global Warming Level (~S~o~N~C) vs. %s"
 #
 seasons_description : [ "a) Tropics JJA", 
@@ -81,12 +81,6 @@ EOF
 
 jobname=$figname
 output=$figname
-
-# Tell job_pm.sh to use co-located environment setting
-export ENV_PM=$(cd $(dirname $0); pwd)/job_env.sh
-
-# Tell where is python code file cammac_user_settings 
-export CAMMAC_USER_PYTHON_CODE_DIR=$(cd $(dirname $0); pwd)
 
 # Tell job_pm.sh to use co-located parameters file 
 commons=$(cd $(dirname $0); pwd)/common_parameters.yaml

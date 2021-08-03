@@ -3,9 +3,9 @@ of IPCC/AR6/WG1 figures, mainly for Chapter 8, but also for some
 figures of the Technical Summary. It only deals with figures derived
 using CMIP6 multi-model outputs
 
-This version is tagged V1 and was checked to reproduce results
-included in the 6th IPCC/WGI Assessment Report. It relies on CAMMAC V1
-(see below)
+Version tagged AR6_and_CMIP5 was checked to reproduce results included
+in the 6th IPCC/WGI Assessment Report. It relies on CAMMAC release
+AR6_and_CMIP5 (see below)
 
 These scripts have been used on the `CLIMERI-France data and computing
 platform <https://climeri-france.fr/acces-plateforme/>`_ for actually
@@ -19,8 +19,9 @@ These scripts make heavy use of `CAMMAC
 IPCC/AR6/WGI timeline; they just set parameters for CAMMAC notebooks
 and do launch them using a CAMMAC launch script. Documentation for
 these parameters is provided in CAMMAC documentation for each
-notebook. **The compatible CAMMAC version is tagged V1**. CAMMAC in
-turn makes heavy use of `CliMAF <https://climaf.readthedocs.io>`_
+notebook. **The recommended compatible CAMMAC release is tagged
+AR6_and_CMIP5**. CAMMAC in turn makes heavy use of `CliMAF
+<https://climaf.readthedocs.io>`_
 
 Also provided is a dictionnary of the CMIP6 data that where available
 on the above platform on 31 january 2021, with sufficient temporal
@@ -34,25 +35,25 @@ The script's software requirements are limited to `those of CAMMAC
 
 The installation consists in:
 
-  - downloading the scripts : `git clone
-    https://github.com/senesis/some_chap8_figures.git`
-  - installing CliMAF and CAMMAC (this includes tuning
-    $CAMMAC/jobs/job_env.sh)
-  - tuning parameter file scripts/common_parameters.yaml according to
-    your CAMMAC install
+- downloading the scripts : `git clone
+  https://github.com/senesis/some_chap8_figures.git`
+- installing CliMAF and CAMMAC (this includes tuning
+  $CAMMAC/jobs/job_env.sh)
+- tuning parameter file scripts/common_parameters.yaml according to
+  your CAMMAC install
 
 When executing a script:
 
-  - first set the environment as described in CAMMAC doc (see section
-    'Batch...'; you basically have to set environment varables CLIMAF
-    and CAMMAC)
-  - a figure-specific directory is created locally. It will contain an
-    execution trace (as a notebook with output cells), and for most
-    scripts two directories:
+- first set the environment as described in CAMMAC doc (see section
+  'Batch...'; you basically have to set environment varables CLIMAF
+  and CAMMAC)
+- a figure-specific directory is created locally. It will contain an
+  execution trace (as a notebook with output cells), and for most
+  scripts two directories:
     
-    - figures : contains single panel figures, a multi-panel figure,
-      and metadata files which list the data used
-    - cache : contains the data used as input of the figure plot phase
+  - figures : contains single panel figures, a multi-panel figure,
+    and metadata files which list the data used
+  - cache : contains the data used as input of the figure plot phase
 
 If scripts are launched with argument 'True', they actually run on a test case
 
