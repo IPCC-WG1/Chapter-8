@@ -31,7 +31,7 @@ use it elsewhere, one should only keep those dictionnary entries
 corresponding to locally available data
 
 The script's software requirements are limited to `those of CAMMAC
-<https://cammac.readthedocs.io/en/latest/requirements.html>`_
+<https://cammac.readthedocs.io/en/latest/software_organization.html#sofware-requirements>`_
 
 The installation consists in:
 
