@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5217343.svg)](https://doi.org/10.5281/zenodo.5217343)
+
 **Some_chap8_figures** is a repository for scripts producing a subset
 of IPCC/AR6/WG1 figures, mainly for Chapter 8, but also for some
 figures of the Technical Summary. It only deals with figures derived
